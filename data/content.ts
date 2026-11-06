@@ -43,7 +43,7 @@ export const projectMeta: ProjectMeta[] = [
   {
     id: 'outlineowl',
     name: 'OutlineOwl',
-    stack: ['React', 'Vite', 'Express', 'Google Calendar API', 'Twilio'],
+    stack: ['React', 'Vite', 'Express', 'Gemini', 'Google Calendar API', 'Twilio'],
     repo: 'https://github.com/Hero-Sphinx/OutlineOwl',
     live: 'https://outlineowl.vercel.app',
     art: 'calendar',
@@ -99,6 +99,11 @@ export const en = {
     cta: 'See my work →',
     stats: { projects: 'featured projects', live: 'live demos', tests: 'tests on one app' },
     scroll: 'Scroll to About',
+  },
+  motto: {
+    line: 'I turn code into coffee, bugs into learning moments.',
+    driven: 'My code is driven by the',
+    words: ['Heart', 'Hustle', 'Passion', 'Purpose'],
   },
   figures: [
     { title: 'The brain', note: 'where I am heading' },
@@ -160,23 +165,24 @@ export const en = {
   outline: {
     eyebrow: 'Try it',
     title: ['From course outline to ', 'calendar', ' in one click.'],
-    lead: 'OutlineOwl’s core idea, in miniature. Deadlines hide inside every course outline, so it finds them for you. Use the sample, or paste your own.',
+    lead: 'OutlineOwl’s core idea, in miniature. Deadlines hide inside every course outline, so it finds them and shows what each one covers, your Area of Concentration. Use the sample, or paste your own.',
     inputLabel: 'Course outline',
     action: 'Find my deadlines',
     hint: 'Your deadlines will land here.',
     empty: 'No dates found. Try a line like “Essay due October 15”.',
     found: 'Deadlines found:',
     untitled: 'Deadline',
+    focus: 'Area of Concentration:',
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     weekdays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
     sample: `CS 101: Introduction to Programming (sample outline)
-Week 3 quiz: September 19
-Assignment 1 due September 26
-Midterm exam: October 17
+Week 3 quiz: September 19 (covers variables and loops)
+Assignment 1 due September 26 (topics: functions)
+Midterm exam: October 17 (covers Chapters 1 to 5)
 Project proposal due Oct 31
-Assignment 2 due November 14
-Final project due December 5`,
-    disclaimer: 'A simplified version that reads text in your browser, so nothing you type leaves this page. The real OutlineOwl reads PDF outlines and syncs to Google Calendar.',
+Assignment 2 due November 14 (topics: arrays and recursion)
+Final project due December 5 (covers all units)`,
+    disclaimer: 'A simplified version that reads text in your browser, so nothing you type leaves this page. The real OutlineOwl reads PDF outlines, uses AI to work out each Area of Concentration and adds study tips, then syncs to Google Calendar.',
     caseStudy: 'Read the OutlineOwl case study →',
   },
   projects: {
@@ -239,17 +245,19 @@ Final project due December 5`,
       blurb: 'Turns course outlines into a synced study calendar.',
       highlights: [
         'Parses unstructured PDF outlines and extracts every deadline',
+        'Gemini names the Area of Concentration for each test or assignment, with study tips',
         'Pushes dates to Google Calendar (OAuth) with Twilio SMS reminders',
         'Health-checked backend monitored for uptime',
       ],
       problem: 'Every course hides its deadlines in a differently formatted PDF. Students copy them out by hand, or miss them.',
-      flow: ['Course outline PDF', 'Parsing pipeline', 'Google Calendar', 'SMS reminders'],
+      flow: ['Course outline PDF', 'Gemini parsing', 'Areas of Concentration', 'Google Calendar', 'SMS reminders'],
       decisions: [
         { title: 'Parse the messy input', text: 'An automated pipeline reads unstructured PDFs and extracts high-priority dates and deadlines for scheduling.' },
+        { title: 'Tell students where to focus', text: 'For each test or assignment, Gemini identifies the Area of Concentration, the main topic or unit it covers, and writes a short study guide, so students know where to concentrate.' },
         { title: 'Meet students where they look', text: 'Google Calendar OAuth and Twilio SMS push the extracted schedule straight to the student.' },
         { title: 'Watch it in production', text: 'A /health endpoint tracked by UptimeRobot keeps the service monitored.' },
       ],
-      results: ['Deadlines extracted from unstructured PDFs', 'Automatic calendar sync', 'SMS reminders', 'Live demo available'],
+      results: ['Deadlines extracted from unstructured PDFs', 'Area of Concentration and study tips for each assessment', 'Automatic calendar sync', 'SMS reminders'],
     },
     pizza: {
       blurb: 'Full-stack ordering platform for pizza restaurants, with a live kitchen board.',
@@ -347,6 +355,7 @@ Final project due December 5`,
     eyebrow: 'Contact',
     title: ["Let's build something that ", 'matters', '.'],
     lead: 'Open to junior, intern and full-stack roles in Canada (remote or Ontario). Reach me by email or on LinkedIn.',
+    email: 'Email me',
     linkedin: 'Message me on LinkedIn',
     builtWith: 'Built with Vue 3, Nuxt & three.js',
   },

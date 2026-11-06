@@ -19,6 +19,11 @@ export const fr: Content = {
     stats: { projects: 'projets phares', live: 'démos en ligne', tests: 'tests sur une seule appli' },
     scroll: 'Défiler vers À propos',
   },
+  motto: {
+    line: 'Je transforme le code en café, et les bogues en occasions d’apprendre.',
+    driven: 'Mon code est guidé par le',
+    words: en.motto.words, // HHPP only works with the English initials
+  },
   figures: [
     { title: 'Le cerveau', note: 'là où je me dirige' },
     { title: 'L’œil', note: 'recherche sur les prothèses optiques' },
@@ -79,23 +84,24 @@ export const fr: Content = {
   outline: {
     eyebrow: 'Essayez',
     title: ['Du plan de cours au ', 'calendrier', ' en un clic.'],
-    lead: 'L’idée clé d’OutlineOwl, en miniature. Les échéances se cachent dans chaque plan de cours : il les trouve pour vous. Utilisez l’exemple ou collez le vôtre.',
+    lead: 'L’idée clé d’OutlineOwl, en miniature. Les échéances se cachent dans chaque plan de cours : il les trouve et montre ce que chacune couvre, votre domaine de concentration. Utilisez l’exemple ou collez le vôtre.',
     inputLabel: 'Plan de cours',
     action: 'Trouver mes échéances',
     hint: 'Vos échéances apparaîtront ici.',
     empty: 'Aucune date trouvée. Essayez une ligne comme « Essai à remettre le 15 octobre ».',
     found: 'Échéances trouvées :',
     untitled: 'Échéance',
+    focus: 'Domaine de concentration :',
     months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
     weekdays: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
     sample: `INF 101 : Introduction à la programmation (plan de cours exemple)
-Quiz de la semaine 3 : 19 septembre
-Devoir 1 à remettre le 26 septembre
-Examen de mi-session : 17 octobre
+Quiz de la semaine 3 : 19 septembre (porte sur les variables et les boucles)
+Devoir 1 à remettre le 26 septembre (sujets : fonctions)
+Examen de mi-session : 17 octobre (porte sur les chapitres 1 à 5)
 Proposition de projet à remettre le 31 octobre
-Devoir 2 à remettre le 14 novembre
-Projet final à remettre le 5 décembre`,
-    disclaimer: 'Une version simplifiée qui lit le texte dans votre navigateur : rien de ce que vous tapez ne quitte cette page. Le vrai OutlineOwl lit les plans de cours PDF et se synchronise avec Google Agenda.',
+Devoir 2 à remettre le 14 novembre (sujets : tableaux et récursivité)
+Projet final à remettre le 5 décembre (porte sur toutes les unités)`,
+    disclaimer: 'Une version simplifiée qui lit le texte dans votre navigateur : rien de ce que vous tapez ne quitte cette page. Le vrai OutlineOwl lit les plans de cours PDF, utilise l’IA pour trouver chaque domaine de concentration et ajoute des conseils d’étude, puis se synchronise avec Google Agenda.',
     caseStudy: 'Lire l’étude de cas OutlineOwl →',
   },
   projects: {
@@ -158,17 +164,19 @@ Projet final à remettre le 5 décembre`,
       blurb: 'Transforme les plans de cours en calendrier d’études synchronisé.',
       highlights: [
         'Analyse les plans de cours PDF non structurés et en extrait chaque échéance',
+        'Gemini indique le domaine de concentration de chaque examen ou devoir, avec des conseils d’étude',
         'Envoie les dates vers Google Agenda (OAuth) avec rappels SMS Twilio',
         'Backend surveillé avec contrôles de santé',
       ],
       problem: 'Chaque cours cache ses échéances dans un PDF au format différent. Les étudiants les recopient à la main, ou les manquent.',
-      flow: ['Plan de cours PDF', 'Pipeline d’analyse', 'Google Agenda', 'Rappels SMS'],
+      flow: ['Plan de cours PDF', 'Analyse par Gemini', 'Domaines de concentration', 'Google Agenda', 'Rappels SMS'],
       decisions: [
         { title: 'Analyser des données désordonnées', text: 'Un pipeline automatisé lit les PDF non structurés et en extrait les dates et échéances prioritaires.' },
+        { title: 'Montrer où se concentrer', text: 'Pour chaque examen ou devoir, Gemini repère le domaine de concentration, le sujet ou l’unité principale couverte, et rédige un court guide d’étude pour que les étudiants sachent où concentrer leurs efforts.' },
         { title: 'Aller là où regardent les étudiants', text: 'Google Agenda (OAuth) et les SMS Twilio envoient le calendrier directement à l’étudiant.' },
         { title: 'Surveiller en production', text: 'Un point de terminaison /health suivi par UptimeRobot assure la surveillance du service.' },
       ],
-      results: ['Échéances extraites de PDF non structurés', 'Synchronisation automatique du calendrier', 'Rappels par SMS', 'Démo en ligne disponible'],
+      results: ['Échéances extraites de PDF non structurés', 'Domaine de concentration et conseils d’étude pour chaque évaluation', 'Synchronisation automatique du calendrier', 'Rappels par SMS'],
     },
     pizza: {
       blurb: 'Plateforme full-stack de commande pour pizzerias, avec tableau de cuisine en direct.',
@@ -261,6 +269,7 @@ Projet final à remettre le 5 décembre`,
     eyebrow: 'Contact',
     title: ['Construisons quelque chose qui ', 'compte', '.'],
     lead: 'Ouvert aux postes junior, de stagiaire et full-stack au Canada (à distance ou en Ontario). Écrivez-moi par courriel ou sur LinkedIn.',
+    email: 'M’écrire par courriel',
     linkedin: 'M’écrire sur LinkedIn',
     builtWith: 'Construit avec Vue 3, Nuxt et three.js',
   },
