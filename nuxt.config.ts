@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Full-stack developer building fast, tested software in TypeScript and Java, with a focus on MedTech, AI and neurotechnology.',
+            'Full-stack developer building fast, tested software, with a focus on MedTech, AI and neurotechnology.',
         },
         { name: 'theme-color', content: '#06110d' },
         { property: 'og:title', content: 'Abdullahi — Full-Stack Developer' },

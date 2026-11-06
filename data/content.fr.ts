@@ -6,7 +6,7 @@ export const fr: Content = {
   meta: {
     title: 'Abdullahi — Développeur full-stack',
     description:
-      'Développeur full-stack qui crée des logiciels rapides et testés en TypeScript et en Java, avec un intérêt pour les technologies médicales, l’IA et la neurotechnologie.',
+      'Développeur full-stack qui crée des logiciels rapides et testés, avec un intérêt pour les technologies médicales, l’IA et la neurotechnologie.',
   },
   nav: { about: 'À propos', research: 'Recherche', projects: 'Projets', experience: 'Expérience', skills: 'Compétences', contact: 'Contact', menu: 'Menu', language: 'Switch to English', languageShort: 'EN' },
   hero: {
@@ -14,7 +14,7 @@ export const fr: Content = {
     name: 'Abdullahi',
     roles: ['Développeur full-stack', 'Créateur en MedTech et IA', 'Futur neurotechnologue'],
     tagline:
-      'Je crée des logiciels rapides, testés et pensés d’abord pour le mobile, des backends Java et Node.js aux interfaces React, avec un intérêt pour les technologies qui aident les gens à guérir et à apprendre.',
+      'Je crée des logiciels rapides, testés et pensés d’abord pour le mobile, des backends rigoureux aux interfaces sophistiquées, avec un intérêt pour les technologies qui aident les gens à guérir et à apprendre.',
     cta: 'Voir mes projets →',
     stats: { projects: 'projets phares', live: 'démos en ligne', tests: 'tests sur une seule appli' },
     scroll: 'Défiler vers À propos',
