@@ -1,7 +1,8 @@
 <script setup lang="ts">
-// A brain-shaped neural network in three.js: nodes on two hemispheres, links between near neighbours, and
+// A brain drawn in particles with three.js: folded cortex, cerebellum and stem, links between near neighbours, and
 // "signals" travelling along the links. `.client.vue` means Nuxt only renders it in the browser (no WebGL on the server).
 import * as THREE from 'three'
+import { brainPoints } from '~/utils/shapes'
 
 const host = ref<HTMLDivElement | null>(null)
 const failed = ref(false)
@@ -9,19 +10,6 @@ let cleanup: (() => void) | null = null
 
 const EMERALD = new THREE.Color('#34d399')
 const GOLD = new THREE.Color('#fbbf24')
-
-// Random point inside one hemisphere's shell, squashed into a brain-like ellipsoid.
-function brainPoint(side: number): THREE.Vector3 {
-  const u = Math.random() * 2 - 1
-  const theta = Math.random() * Math.PI * 2
-  const s = Math.sqrt(1 - u * u)
-  const r = 0.78 + Math.random() * 0.22
-  let x = s * Math.cos(theta) * r
-  const y = u * r
-  const z = s * Math.sin(theta) * r
-  x = Math.abs(x) * side // keep each hemisphere on its own side
-  return new THREE.Vector3(x * 0.95 + side * 0.12, y * 0.82, z * 1.18)
-}
 
 onMounted(async () => {
   // A .client.vue component mounts a placeholder first; the real template only exists after the next tick.
@@ -50,21 +38,22 @@ onMounted(async () => {
   camera.position.set(0, 0, small ? 4.6 : 3.9)
 
   const brain = new THREE.Group()
+  const restAngle = -1.25 // near side-on, where the folds and cerebellum read best
+  brain.rotation.y = restAngle
   scene.add(brain)
 
   // Nodes
-  const count = small ? 260 : 520
-  const nodes: THREE.Vector3[] = []
-  for (let i = 0; i < count; i++) nodes.push(brainPoint(i % 2 === 0 ? 1 : -1))
+  const count = small ? 4500 : 9000
+  const nodes = brainPoints(count).map(([x, y, z]) => new THREE.Vector3(x, y, z))
 
   const nodePos = new Float32Array(count * 3)
   const nodeCol = new Float32Array(count * 3)
   const nodeSize = new Float32Array(count)
   nodes.forEach((p, i) => {
     nodePos.set([p.x, p.y, p.z], i * 3)
-    const c = EMERALD.clone().lerp(GOLD, Math.random() < 0.18 ? 0.9 : Math.random() * 0.25)
+    const c = EMERALD.clone().lerp(GOLD, Math.random() < 0.1 ? 0.9 : Math.random() * 0.22)
     nodeCol.set([c.r, c.g, c.b], i * 3)
-    nodeSize[i] = 0.6 + Math.random() * 1.1
+    nodeSize[i] = 0.3 + Math.random() * 0.42
   })
 
   const dotMaterial = new THREE.ShaderMaterial({
@@ -100,12 +89,13 @@ onMounted(async () => {
   nodeGeo.setAttribute('size', new THREE.BufferAttribute(nodeSize, 1))
   brain.add(new THREE.Points(nodeGeo, dotMaterial))
 
-  // Links: each node connects to up to 3 close neighbours
+  // Links: a subset of nodes connects to up to 2 close neighbours; linking every particle would hide the folds
   const edges: [number, number][] = []
+  const linked = small ? 220 : 420
   const maxDist = small ? 0.36 : 0.3
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < linked; i++) {
     let links = 0
-    for (let j = i + 1; j < count && links < 3; j++) {
+    for (let j = i + 1; j < linked && links < 2; j++) {
       if (nodes[i].distanceTo(nodes[j]) < maxDist) {
         edges.push([i, j])
         links++
@@ -187,15 +177,18 @@ onMounted(async () => {
 
   const a = new THREE.Vector3()
   const b = new THREE.Vector3()
-  const clock = new THREE.Clock()
+  const started = performance.now()
+  let last = started
   let frame = 0
 
   const render = () => {
-    const dt = Math.min(clock.getDelta(), 0.05)
-    const t = clock.elapsedTime
+    const now = performance.now()
+    const dt = Math.min((now - last) / 1000, 0.05)
+    const t = (now - started) / 1000
+    last = now
     dotMaterial.uniforms.uTime.value = t
 
-    brain.rotation.y += dt * 0.12
+    brain.rotation.y = restAngle + Math.sin(t * 0.3) * 0.5 // sway rather than spin: front-on it reads as a mushroom
     brain.rotation.x += (target.y * 0.25 - brain.rotation.x) * 0.04
     brain.position.x += (target.x * 0.15 - brain.position.x) * 0.04
     dust.rotation.y = t * 0.01
