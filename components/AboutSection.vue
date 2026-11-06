@@ -1,21 +1,15 @@
 <script setup lang="ts">
-import { education, pillars, spokenLanguages } from '~/data/content'
+const { t } = useContent()
 </script>
 
 <template>
   <section id="about" class="section">
     <div class="container">
-      <p v-reveal class="eyebrow">About me</p>
-      <h2 v-reveal class="section-title">Software that helps people <span class="gradient-text">heal and learn</span>.</h2>
-      <p v-reveal class="section-lead">
-        I'm a full-stack developer who doesn't stop until a problem is solved: research, questions, open source,
-        whatever it takes. I've built for restaurants, clinics and learners, and I'm working toward neurotechnology,
-        where software meets the brain.
-      </p>
+      <SectionHeading :eyebrow="t.about.eyebrow" :title="t.about.title" :lead="t.about.lead" />
 
       <div class="pillars">
-        <TiltCard v-for="(p, i) in pillars" :key="p.title" v-reveal="i * 90" class="pillar" :max="8">
-          <span class="icon" aria-hidden="true">{{ p.icon }}</span>
+        <TiltCard v-for="(p, i) in t.about.pillars" :key="i" v-reveal="i * 90" class="pillar" :max="8">
+          <span class="number" aria-hidden="true">0{{ i + 1 }}</span>
           <h3>{{ p.title }}</h3>
           <p>{{ p.text }}</p>
         </TiltCard>
@@ -23,18 +17,18 @@ import { education, pillars, spokenLanguages } from '~/data/content'
 
       <div class="meta">
         <div v-reveal class="meta-block">
-          <h3>Education</h3>
+          <h3>{{ t.about.educationTitle }}</h3>
           <ul>
-            <li v-for="e in education" :key="e.school">
+            <li v-for="e in t.about.education" :key="e.school">
               <strong>{{ e.school }}</strong>
               <span>{{ e.credential }} · {{ e.dates }}</span>
             </li>
           </ul>
         </div>
         <div v-reveal="120" class="meta-block">
-          <h3>Languages I speak</h3>
+          <h3>{{ t.about.languagesTitle }}</h3>
           <div class="chips">
-            <span v-for="l in spokenLanguages" :key="l" class="chip">{{ l }}</span>
+            <span v-for="l in t.about.languages" :key="l" class="chip">{{ l }}</span>
           </div>
         </div>
       </div>
@@ -52,12 +46,15 @@ import { education, pillars, spokenLanguages } from '~/data/content'
 .pillar {
   padding: 28px 24px;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
 }
 
-.icon {
-  font-size: 1.8rem;
+.number {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
   display: block;
   margin-bottom: 18px;
 }
@@ -83,7 +80,7 @@ import { education, pillars, spokenLanguages } from '~/data/content'
 .meta-block {
   padding: 26px 24px;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
 }
 

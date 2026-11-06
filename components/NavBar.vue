@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { links } from '~/data/content'
 
-const sections = [
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'contact', label: 'Contact' },
-]
+const { t, locale, setLocale } = useContent()
+const sections = ['about', 'research', 'projects', 'experience', 'skills', 'contact'] as const
 
 const scrolled = ref(false)
 const open = ref(false)
@@ -23,23 +18,26 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 <template>
   <header class="nav" :class="{ scrolled, open }">
     <div class="container bar">
-      <a href="#top" class="logo" @click="open = false">
+      <NuxtLink to="/#top" class="logo" @click="open = false">
         <img src="/favicon.svg" alt="" width="28" height="28" />
         <span>Abdullahi</span>
-      </a>
+      </NuxtLink>
 
       <button
         class="menu-btn"
         :aria-expanded="open"
         aria-controls="nav-links"
-        aria-label="Menu"
+        :aria-label="t.nav.menu"
         @click="open = !open"
       >
         <span /><span />
       </button>
 
       <nav id="nav-links" class="links">
-        <a v-for="s in sections" :key="s.id" :href="`#${s.id}`" @click="open = false">{{ s.label }}</a>
+        <NuxtLink v-for="s in sections" :key="s" :to="`/#${s}`" @click="open = false">{{ t.nav[s] }}</NuxtLink>
+        <button type="button" class="lang" :aria-label="t.nav.language" @click="setLocale(locale === 'en' ? 'fr' : 'en')">
+          {{ t.nav.languageShort }}
+        </button>
         <a :href="links.github" target="_blank" rel="noopener" class="btn">GitHub</a>
       </nav>
     </div>
@@ -95,6 +93,24 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
   color: var(--text);
 }
 
+.lang {
+  min-width: 40px;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.lang:hover {
+  border-color: var(--emerald);
+}
+
 .menu-btn {
   display: none;
   background: none;
@@ -120,7 +136,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
   transform: translateY(-3.5px) rotate(-45deg);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 960px) {
   .menu-btn {
     display: block;
   }

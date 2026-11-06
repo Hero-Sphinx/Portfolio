@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { projects } from '~/data/content'
+const { t, projects } = useContent()
 
 // The first project gets the wide spotlight card; the rest sit in a grid.
-const [spotlight, ...rest] = projects
+const spotlight = computed(() => projects.value[0]!)
+const rest = computed(() => projects.value.slice(1))
 </script>
 
 <template>
   <section id="projects" class="section">
     <div class="container">
-      <p v-reveal class="eyebrow">Selected work</p>
-      <h2 v-reveal class="section-title">Projects with <span class="gradient-text">live demos</span>.</h2>
-      <p v-reveal class="section-lead">
-        Real products, not tutorials: tested, deployed and built to solve a real problem. Click through and try them.
-      </p>
+      <SectionHeading :eyebrow="t.projects.eyebrow" :title="t.projects.title" :lead="t.projects.lead" />
 
       <ProjectCard v-reveal :project="spotlight" featured class="spotlight" />
 

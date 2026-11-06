@@ -1,68 +1,29 @@
-// Everything the site says lives here, so updating the portfolio never means digging through components.
+// Everything the site says lives here (French in content.fr.ts), so updating the portfolio never means digging through
+// components. Facts come from the README and CV: never add a number or claim here that can't be backed up.
 
 export const links = {
   github: 'https://github.com/Hero-Sphinx',
   linkedin: 'https://www.linkedin.com/in/abdullahi-salami-4a8788218/',
 }
 
-export const hero = {
-  name: 'Abdullahi',
-  roles: ['Full-Stack Developer', 'MedTech & AI Builder', 'Aspiring Neurotechnologist'],
-  tagline:
-    'I build fast, tested, mobile-first software, from Java and Node.js backends to React frontends, with a focus on technology that helps people heal and learn.',
-}
+export type ProjectArt = 'calendar' | 'tickets' | 'routes' | 'flight'
 
-export interface Pillar {
-  icon: string
-  title: string
-  text: string
-}
-
-export const pillars: Pillar[] = [
-  {
-    icon: '⚡',
-    title: 'Full-stack web',
-    text: 'Next.js, TypeScript, React and Node.js on PostgreSQL, shipped behind CI gates with 280+ unit tests on a single project.',
-  },
-  {
-    icon: '☕',
-    title: 'Java systems',
-    text: 'Spring Boot, JSP/Servlets and classic design patterns (Singleton, Builder, DAO, Front Controller), tested with JUnit.',
-  },
-  {
-    icon: '🩺',
-    title: 'MedTech',
-    text: 'Built RoboDoc, an AI patient-triage system with real-time vital-sign alerts and bilingual (EN/FR) clinical assessments.',
-  },
-  {
-    icon: '🧠',
-    title: 'Neurotechnology',
-    text: 'Researching optical prosthetics, including cortical approaches that target the visual cortex (V1), alongside Data Science & AI studies.',
-  },
-]
-
-export interface Project {
+export interface ProjectMeta {
   id: string
   name: string
-  blurb: string
-  highlights: string[]
   stack: string[]
   repo: string
   live?: string
+  /** A real screenshot of a public page; projects without one get generated art. */
   shot?: string
+  art?: ProjectArt
   accent: string
 }
 
-export const projects: Project[] = [
+export const projectMeta: ProjectMeta[] = [
   {
     id: 'seebawayh',
     name: 'Daaru-s-Seebawayh',
-    blurb: 'AI-assisted Arabic grammar & Qur’an learning platform.',
-    highlights: [
-      'Rule-based grammar (I’rab) engine plus a self-hosted NLP microservice',
-      '77,000+ word-by-word translations imported with re-runnable pipelines',
-      '280+ unit tests and security rules enforced in CI before every deploy',
-    ],
     stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'FastAPI', 'Gemini', 'Docker'],
     repo: 'https://github.com/Hero-Sphinx/Daaru-s-Seebawayh',
     live: 'https://daaru-s-seebawayh.vercel.app',
@@ -72,126 +33,274 @@ export const projects: Project[] = [
   {
     id: 'robodoc',
     name: 'RoboDoc',
-    blurb: 'AI-driven patient triage for emergency intake.',
-    highlights: [
-      'Gemini calls moved to background workers so intake never freezes',
-      'Critical vitals bypass AI: Twilio SMS alerts and Socket.io updates in under 45 ms',
-      'Bilingual (English/French) clinical assessments',
-    ],
     stack: ['React', 'Node.js', 'MySQL', 'Prisma', 'Gemini', 'Socket.io'],
     repo: 'https://github.com/Hero-Sphinx/RoboDoc',
     live: 'https://robodoc-hhpp.vercel.app',
+    shot: '/shots/robodoc.png',
     accent: '#38bdf8',
   },
   {
     id: 'outlineowl',
     name: 'OutlineOwl',
-    blurb: 'Turns course outlines into a synced study calendar.',
-    highlights: [
-      'Parses unstructured PDF outlines and extracts every deadline',
-      'Pushes dates to Google Calendar (OAuth) with Twilio SMS reminders',
-      'Health-checked backend monitored for uptime',
-    ],
     stack: ['React', 'Vite', 'Express', 'Google Calendar API', 'Twilio'],
     repo: 'https://github.com/Hero-Sphinx/OutlineOwl',
     live: 'https://outlineowl.vercel.app',
-    shot: '/shots/outlineowl.png',
+    art: 'calendar',
     accent: '#a78bfa',
   },
   {
     id: 'pizza',
     name: '786 Pizza & Wings',
-    blurb: 'Online ordering platform with a live kitchen board.',
-    highlights: [
-      'Menu and combo builder with live prices, pickup or delivery',
-      'Server re-prices every order; the browser never sends prices',
-      'Own auth (argon2id, lockout), rate limits and 55 tests in CI',
-    ],
     stack: ['Next.js', 'TypeScript', 'Prisma', 'Tailwind', 'Vitest'],
     repo: 'https://github.com/Hero-Sphinx/786-Pizza-Wings',
+    art: 'tickets',
     accent: '#fbbf24',
   },
   {
     id: 'ptfms',
     name: 'Transit Fleet Manager',
-    blurb: 'Public transit fleet management system (PTFMS).',
-    highlights: [
-      '3-tier web app for vehicles, routes, status and reports',
-      'Role-based access for managers and operators',
-      'Design patterns throughout, validated with JUnit',
-    ],
     stack: ['Java', 'JSP', 'Servlets', 'MySQL', 'JUnit'],
     repo: 'https://github.com/Hero-Sphinx/Transit_Project',
+    art: 'routes',
     accent: '#f97316',
   },
   {
     id: 'flight',
     name: 'Flight App',
-    blurb: 'Cross-platform Flutter app for airline operations.',
-    highlights: [
-      'Manage airplanes, flights, customers and reservations',
-      'On-device SQLite storage',
-      'Built in Android Studio',
-    ],
     stack: ['Flutter', 'Dart', 'SQLite'],
     repo: 'https://github.com/Hero-Sphinx/Flight-App',
+    art: 'flight',
     accent: '#22d3ee',
   },
 ]
 
-export interface Role {
-  company: string
-  title: string
-  dates: string
-  text: string
+export const en = {
+  meta: {
+    title: 'Abdullahi — Full-Stack Developer',
+    description:
+      'Full-stack developer building fast, tested software in TypeScript and Java, with a focus on MedTech, AI and neurotechnology.',
+  },
+  nav: { about: 'About', research: 'Research', projects: 'Projects', experience: 'Experience', skills: 'Skills', contact: 'Contact', menu: 'Menu', language: 'Passer au français', languageShort: 'FR' },
+  hero: {
+    greeting: "Hey, I'm",
+    name: 'Abdullahi',
+    roles: ['Full-Stack Developer', 'MedTech & AI Builder', 'Aspiring Neurotechnologist'],
+    tagline:
+      'I build fast, tested, mobile-first software, from Java and Node.js backends to React frontends, with a focus on technology that helps people heal and learn.',
+    cta: 'See my work →',
+    stats: { projects: 'featured projects', live: 'live demos', tests: 'tests on one app' },
+    scroll: 'Scroll to About',
+  },
+  figures: [
+    { title: 'The brain', note: 'where I am heading' },
+    { title: 'The eye', note: 'optical prosthetics research' },
+    { title: 'The pulse', note: 'real-time vitals in RoboDoc' },
+    { title: 'The helix', note: 'years of building, strand by strand' },
+    { title: 'The network', note: 'tools that work together' },
+    { title: 'The brain', note: 'let’s build' },
+  ],
+  about: {
+    eyebrow: 'About me',
+    title: ['Software that helps people ', 'heal and learn', '.'],
+    lead: "I'm a full-stack developer who doesn't stop until a problem is solved: research, questions, open source, whatever it takes. I've built for restaurants, clinics and learners, and I'm working toward neurotechnology, where software meets the brain.",
+    educationTitle: 'Education',
+    languagesTitle: 'Languages I speak',
+    pillars: [
+      { title: 'Full-stack web', text: 'Next.js, TypeScript, React and Node.js on PostgreSQL, shipped behind CI gates with 280+ unit tests on a single project.' },
+      { title: 'Java systems', text: 'Spring Boot, JSP/Servlets and classic design patterns (Singleton, Builder, DAO, Front Controller), tested with JUnit.' },
+      { title: 'MedTech', text: 'Built RoboDoc, an AI patient-triage system with real-time vital-sign alerts and bilingual (EN/FR) clinical assessments.' },
+      { title: 'Neurotechnology', text: 'Researching optical prosthetics, including cortical approaches that target the visual cortex (V1), alongside Data Science & AI studies.' },
+    ],
+    education: [
+      { school: 'Algoma University', credential: 'BCS (Honours), Data Science & AI', dates: 'In progress' },
+      { school: 'Algonquin College', credential: 'Diploma, Computer Programming', dates: 'Graduated Dec 2025' },
+    ],
+    languages: ['English', 'Arabic', 'French', 'Yoruba', 'Pidgin'],
+  },
+  research: {
+    eyebrow: 'Research',
+    title: ['What does ', 'artificial sight', ' look like?'],
+    lead: "I'm writing a research paper on optical prosthetics, including cortical approaches that target the visual cortex (V1). Each electrode can produce a dot of light called a phosphene. Move the slider to see how the number of electrodes changes what a person could make out.",
+    original: 'Original scene',
+    perceived: 'Simulated phosphene view',
+    electrodes: 'Electrodes',
+    scenes: { face: 'Face', door: 'Doorway', letter: 'Letter' },
+    sceneLabel: 'Choose a scene',
+    disclaimer: 'A simplified illustration, not a clinical model. Real phosphenes differ from person to person.',
+  },
+  triage: {
+    eyebrow: 'Try it',
+    title: ['When seconds count, ', 'skip the AI', '.'],
+    lead: "RoboDoc's key idea, in miniature. AI assessment runs in the background so intake never freezes, but critical vitals bypass the AI and alert staff straight away. Push the vitals into danger and watch the route change.",
+    heartRate: 'Heart rate',
+    oxygen: 'Blood oxygen',
+    bpm: 'bpm',
+    status: { stable: 'Stable', critical: 'Critical' },
+    steps: {
+      intake: 'Vitals received',
+      check: 'Safety check',
+      ai: 'Gemini assessment in a background worker',
+      accepted: 'Intake answers 202 Accepted at once',
+      sms: 'Twilio SMS alert',
+      live: 'Socket.io update to staff',
+    },
+    routes: { normal: 'Normal route', urgent: 'Urgent route, AI bypassed' },
+    disclaimer: 'A simulation with demo thresholds, not medical software. In the real system, alerts go out in under 45 ms.',
+    caseStudy: 'Read the RoboDoc case study →',
+  },
+  projects: {
+    eyebrow: 'Selected work',
+    title: ['Projects with ', 'live demos', '.'],
+    lead: 'Real products, not tutorials: tested, deployed and built to solve a real problem. Click through and try them.',
+    live: 'Live',
+    liveDemo: 'Live demo ↗',
+    source: 'Source code',
+    caseStudy: 'Case study',
+    screenshot: 'Screenshot of',
+  },
+  caseStudy: {
+    back: '← All projects',
+    problem: 'The problem',
+    flow: 'How it works',
+    decisions: 'Key decisions',
+    results: 'What it delivered',
+    stack: 'Built with',
+    next: 'Next project →',
+  },
+  projectText: {
+    seebawayh: {
+      blurb: 'AI-assisted Arabic grammar & Qur’an learning platform.',
+      highlights: [
+        'Rule-based grammar (I’rab) engine plus a self-hosted NLP microservice',
+        '77,000+ word-by-word translations imported with re-runnable pipelines',
+        '280+ unit tests and security rules enforced in CI before every deploy',
+      ],
+      problem: 'Learners of Qur’anic Arabic need grammar they can trust. A language model’s best guess isn’t good enough when every case ending matters, so the analysis had to be precise and the AI kept to the jobs it does well.',
+      flow: ['Arabic text', 'Rule-based parser', 'CAMeL Tools service', 'PostgreSQL corpus', 'Learner'],
+      decisions: [
+        { title: 'Rules before AI', text: 'A deterministic I’rab engine and a self-hosted CAMeL Tools microservice (FastAPI, Docker) handle case endings, roots and syntactic roles, prioritising grammatical precision over LLM estimation.' },
+        { title: 'Gemini with a safety net', text: 'Gemini writes chapter summaries, quizzes and OCR output, with automatic retries on 429/503 and database caching to protect free-tier quotas.' },
+        { title: 'Data you can re-run', text: 'The Qur’anic Arabic Corpus and word-by-word translations load through transactional, re-runnable batch scripts with dual-source validation.' },
+        { title: 'Security enforced by tests', text: 'Custom CI suites verify route authentication, Zod validation and the client/server boundary before anything reaches production.' },
+      ],
+      results: ['77,000+ word-by-word translations', '280+ unit tests gating every deploy', 'PDF reader with word-level grammar inspection', 'Spaced-repetition vocabulary practice (SM-2/Leitner)'],
+    },
+    robodoc: {
+      blurb: 'AI patient triage that helps hospitals see the most urgent cases first.',
+      highlights: [
+        'Gemini calls moved to background workers so intake never freezes',
+        'Critical vitals bypass AI: Twilio SMS alerts and Socket.io updates in under 45 ms',
+        'Bilingual (English/French) clinical assessments',
+      ],
+      problem: 'Hospitals get crowded, and when everyone waits in the same line, people with less urgent problems can hold up those in real danger. RoboDoc sorts patients by urgency to ease that traffic, so high-emergency cases reach staff first. That meant intake could never freeze while an AI model thinks, and a patient in danger could never wait for one at all.',
+      flow: ['Intake station', 'Safety check', 'Alert or background AI', 'Staff dashboard'],
+      decisions: [
+        { title: 'Urgency, not arrival order', text: 'Patients start their own assessment and can check their queue position, so less urgent cases don’t hold up high-emergency ones and staff can focus on who needs them most.' },
+        { title: 'Non-blocking AI', text: 'Gemini calls run in background worker threads, so intake stations answer 202 Accepted straight away during cloud latency.' },
+        { title: 'A safety path with no AI', text: 'When acute vital thresholds are crossed, a separate evaluation engine bypasses AI and triggers Twilio SMS alerts and Socket.io updates in under 45 ms.' },
+        { title: 'Care in the patient’s language', text: 'Lightweight language profiling adds targeted English or French prompts, so assessments come back in the patient’s own language.' },
+        { title: 'Records that stay readable', text: 'A jsPDF layout engine tracks position to prevent overlapping text and keeps AI notes separate from physician records. JWT access control isolates patient Medical IDs.' },
+      ],
+      results: ['Patients prioritised by urgency', 'Critical alerts in under 45 ms', 'Intake stays responsive during AI latency', 'Bilingual EN/FR assessments'],
+    },
+    outlineowl: {
+      blurb: 'Turns course outlines into a synced study calendar.',
+      highlights: [
+        'Parses unstructured PDF outlines and extracts every deadline',
+        'Pushes dates to Google Calendar (OAuth) with Twilio SMS reminders',
+        'Health-checked backend monitored for uptime',
+      ],
+      problem: 'Every course hides its deadlines in a differently formatted PDF. Students copy them out by hand, or miss them.',
+      flow: ['Course outline PDF', 'Parsing pipeline', 'Google Calendar', 'SMS reminders'],
+      decisions: [
+        { title: 'Parse the messy input', text: 'An automated pipeline reads unstructured PDFs and extracts high-priority dates and deadlines for scheduling.' },
+        { title: 'Meet students where they look', text: 'Google Calendar OAuth and Twilio SMS push the extracted schedule straight to the student.' },
+        { title: 'Watch it in production', text: 'A /health endpoint tracked by UptimeRobot keeps the service monitored.' },
+      ],
+      results: ['Deadlines extracted from unstructured PDFs', 'Automatic calendar sync', 'SMS reminders', 'Live demo available'],
+    },
+    pizza: {
+      blurb: 'Online ordering platform with a live kitchen board.',
+      highlights: [
+        'Menu and combo builder with live prices, pickup or delivery',
+        'Server re-prices every order; the browser never sends prices',
+        'Own auth (argon2id, lockout), rate limits and 55 tests in CI',
+      ],
+      problem: 'The restaurant’s third-party ordering page was broken. It needed its own platform for customers and a console for the staff running the kitchen.',
+      flow: ['Customer order', 'Server re-pricing', 'PostgreSQL', 'Live kitchen board'],
+      decisions: [
+        { title: 'Never trust the browser', text: 'Every order is re-priced on the server from fresh menu data, enforcing hours, delivery area, deal rules and sold-out items, with idempotency keys against double orders.' },
+        { title: 'A console staff can run', text: 'Role-based admin with a live kitchen board, new-order chime, printable tickets, sold-out switches and owner settings.' },
+        { title: 'Security by design', text: 'Own authentication with argon2id, hashed sessions and lockout after 5 failed logins, plus Postgres-backed rate limits and CSP nonces.' },
+        { title: 'Safe schema changes', text: 'A 17-table PostgreSQL schema with idempotent migrations that CI applies, re-applies and drift-checks.' },
+      ],
+      results: ['Replaced a broken third-party ordering page', '55 Vitest tests in CI', '17-table PostgreSQL schema', 'Live kitchen order board'],
+    },
+    ptfms: {
+      blurb: 'Public transit fleet management system (PTFMS).',
+      highlights: [
+        '3-tier web app for vehicles, routes, status and reports',
+        'Role-based access for managers and operators',
+        'Design patterns throughout, validated with JUnit',
+      ],
+      problem: 'Transit managers and operators need one place to log vehicles, manage routes, monitor status and report on maintenance, with different access for each role.',
+      flow: ['JSP views', 'Servlets', 'DAO layer', 'MySQL'],
+      decisions: [
+        { title: 'Three clear tiers', text: 'Presentation, logic and data stay separate, using Singleton, Builder, DAO and Front Controller patterns.' },
+        { title: 'Role-based access', text: 'Managers and operators get different privilege levels.' },
+        { title: 'Tested with JUnit', text: 'JUnit tests validate functionality and reliability as the system grows.' },
+      ],
+      results: ['Vehicle, route and status tracking', 'Maintenance reports', 'Role-based access control', 'JUnit test coverage'],
+    },
+    flight: {
+      blurb: 'Cross-platform Flutter app for airline operations.',
+      highlights: [
+        'Manage airplanes, flights, customers and reservations',
+        'On-device SQLite storage',
+        'Built in Android Studio',
+      ],
+      problem: 'Airline operations involve linked records: airplanes, flights, customers and reservations. The app had to manage them all on a phone, without depending on a server.',
+      flow: ['Flutter UI', 'Dart logic', 'On-device SQLite'],
+      decisions: [
+        { title: 'One codebase', text: 'Built with Flutter and Dart so the same app runs across platforms.' },
+        { title: 'Local-first storage', text: 'Records live in an on-device SQLite database.' },
+      ],
+      results: ['Cross-platform mobile app', 'Airplane, flight, customer and reservation management', 'On-device SQLite storage'],
+    },
+  },
+  experience: {
+    eyebrow: 'Experience',
+    title: ['Building since ', '2020', '.'],
+    lead: 'From client websites to leading a team, plus support roles that taught me to debug under pressure.',
+    roles: [
+      { company: 'Yakoyo African Delicacy', title: 'Full-Stack Developer', dates: 'Aug 2024 – Present', text: 'Node.js and PostgreSQL backend with secure APIs for real-time orders, a mobile-first React UI and an admin order dashboard.' },
+      { company: 'Concentrix (Volkswagen & Audi Canada)', title: 'Technical Support Agent & Advisor', dates: 'May 2026 – Aug 2026', text: 'Diagnosed enterprise software issues, escalated recurring bugs and documented resolution workflows under strict SLAs.' },
+      { company: 'Minerva Innovations (Lady Labyrinth)', title: 'Software Developer (Project Lead)', dates: 'Sept 2025 – Dec 2025', text: 'Led a team of 4: core architecture and backend logic, Agile roadmap in ZenHub, Definition of Done and CI/CD quality gates.' },
+      { company: 'Alorica (Best Buy)', title: 'Technical Support Agent', dates: 'Sept 2023 – Feb 2024', text: 'Resolved 30+ support tickets a day with a 95% first-call resolution rate.' },
+      { company: 'TmT Gallery', title: 'Full-Stack Developer', dates: 'Mar 2020 – Jul 2023', text: 'Built and maintained 10+ client websites with designers and product managers, from UI to database.' },
+    ],
+  },
+  skills: {
+    eyebrow: 'Toolbox',
+    title: ['What I ', 'build with', '.'],
+    lead: 'This site itself is built with Vue 3, Nuxt and three.js. The rest is what my projects run on.',
+    groups: [
+      { name: 'Languages', items: ['Java', 'TypeScript', 'JavaScript', 'Python', 'C#', 'C++', 'Dart', 'Assembly', 'SQL'] },
+      { name: 'Frontend', items: ['React', 'Next.js', 'Vue 3 & Nuxt', 'HTML5', 'CSS3', 'Tailwind CSS', 'Vite'] },
+      { name: 'Backend', items: ['Node.js', 'Express', 'FastAPI', 'Spring Boot', '.NET', 'REST APIs', 'Socket.io', 'Prisma', 'Zod'] },
+      { name: 'Data', items: ['PostgreSQL', 'MySQL', 'SQL Server', 'MongoDB', 'SQLite', 'Supabase', 'Neon'] },
+      { name: 'DevOps & Testing', items: ['Docker', 'GitHub Actions', 'Vercel', 'AWS', 'Git', 'Linux', 'Vitest', 'JUnit'] },
+      { name: 'AI & Data', items: ['Machine learning', 'Deep learning', 'NLP', 'Google Gemini', 'LLM integration'] },
+      { name: 'Mobile', items: ['Flutter', 'Android Studio'] },
+    ],
+  },
+  contact: {
+    eyebrow: 'Contact',
+    title: ["Let's build something that ", 'matters', '.'],
+    lead: 'Open to junior, intern and full-stack roles in Canada (remote or Ontario). The fastest way to reach me is LinkedIn.',
+    linkedin: 'Message me on LinkedIn',
+    builtWith: 'Built with Vue 3, Nuxt & three.js',
+  },
 }
 
-export const experience: Role[] = [
-  {
-    company: 'Yakoyo African Delicacy',
-    title: 'Full-Stack Developer',
-    dates: 'Aug 2024 – Present',
-    text: 'Node.js and PostgreSQL backend with secure APIs for real-time orders, a mobile-first React UI and an admin order dashboard.',
-  },
-  {
-    company: 'Concentrix (Volkswagen & Audi Canada)',
-    title: 'Technical Support Agent & Advisor',
-    dates: 'May 2026 – Aug 2026',
-    text: 'Diagnosed enterprise software issues, escalated recurring bugs and documented resolution workflows under strict SLAs.',
-  },
-  {
-    company: 'Minerva Innovations (Lady Labyrinth)',
-    title: 'Software Developer (Project Lead)',
-    dates: 'Sept 2025 – Dec 2025',
-    text: 'Led a team of 4: core architecture and backend logic, Agile roadmap in ZenHub, Definition of Done and CI/CD quality gates.',
-  },
-  {
-    company: 'Alorica (Best Buy)',
-    title: 'Technical Support Agent',
-    dates: 'Sept 2023 – Feb 2024',
-    text: 'Resolved 30+ support tickets a day with a 95% first-call resolution rate.',
-  },
-  {
-    company: 'TmT Gallery',
-    title: 'Full-Stack Developer',
-    dates: 'Mar 2020 – Jul 2023',
-    text: 'Built and maintained 10+ client websites with designers and product managers, from UI to database.',
-  },
-]
-
-export const education = [
-  { school: 'Algoma University', credential: 'BCS (Honours), Data Science & AI', dates: 'In progress' },
-  { school: 'Algonquin College', credential: 'Diploma, Computer Programming', dates: 'Graduated Dec 2025' },
-]
-
-export const skills: Record<string, string[]> = {
-  Languages: ['Java', 'TypeScript', 'JavaScript', 'Python', 'C#', 'C++', 'Dart', 'Assembly', 'SQL'],
-  Frontend: ['React', 'Next.js', 'Vue 3 & Nuxt', 'HTML5', 'CSS3', 'Tailwind CSS', 'Vite'],
-  Backend: ['Node.js', 'Express', 'FastAPI', 'Spring Boot', '.NET', 'REST APIs', 'Socket.io', 'Prisma', 'Zod'],
-  Data: ['PostgreSQL', 'MySQL', 'SQL Server', 'MongoDB', 'SQLite', 'Supabase', 'Neon'],
-  'DevOps & Testing': ['Docker', 'GitHub Actions', 'Vercel', 'AWS', 'Git', 'Linux', 'Vitest', 'JUnit'],
-  'AI & Data': ['Machine learning', 'Deep learning', 'NLP', 'Google Gemini', 'LLM integration'],
-  Mobile: ['Flutter', 'Android Studio'],
-}
-
-export const spokenLanguages = ['English', 'Arabic', 'French', 'Yoruba', 'Pidgin']
+export type Content = typeof en

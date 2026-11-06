@@ -1,18 +1,7 @@
 <script setup lang="ts">
-import type { Project } from '~/data/content'
+const props = defineProps<{ project: ProjectView; featured?: boolean }>()
 
-const props = defineProps<{ project: Project; featured?: boolean }>()
-
-// Projects without a live screenshot get generated art from their initials and accent colour.
-const initials = computed(() =>
-  props.project.name
-    .split(/[\s-]+/)
-    .filter((w) => /^[A-Za-z0-9]/.test(w))
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join('')
-    .toUpperCase(),
-)
+const { t } = useContent()
 const host = computed(() => (props.project.live ? new URL(props.project.live).host : ''))
 </script>
 
@@ -24,18 +13,15 @@ const host = computed(() => (props.project.live ? new URL(props.project.live).ho
           <span class="dots" aria-hidden="true"><i /><i /><i /></span>
           <span class="url">{{ host }}</span>
         </div>
-        <img :src="project.shot" :alt="`Screenshot of ${project.name}`" loading="lazy" width="1440" height="900" />
+        <img :src="project.shot" :alt="`${t.projects.screenshot} ${project.name}`" loading="lazy" width="1440" height="900" />
       </template>
-      <div v-else class="art" aria-hidden="true">
-        <span class="initials">{{ initials }}</span>
-        <span class="orbit" />
-      </div>
+      <ProjectArt v-else-if="project.art" :kind="project.art" />
     </div>
 
     <div class="body">
       <div class="title-row">
         <h3>{{ project.name }}</h3>
-        <span v-if="project.live" class="live"><span class="pulse" />Live</span>
+        <span v-if="project.live" class="live"><span class="pulse" />{{ t.projects.live }}</span>
       </div>
       <p class="blurb">{{ project.blurb }}</p>
       <ul class="highlights">
@@ -45,8 +31,9 @@ const host = computed(() => (props.project.live ? new URL(props.project.live).ho
         <span v-for="s in project.stack" :key="s" class="chip">{{ s }}</span>
       </div>
       <div class="actions">
-        <a v-if="project.live" :href="project.live" target="_blank" rel="noopener" class="btn btn-primary">Live demo ↗</a>
-        <a :href="project.repo" target="_blank" rel="noopener" class="btn">Source code</a>
+        <a v-if="project.live" :href="project.live" target="_blank" rel="noopener" class="btn btn-primary">{{ t.projects.liveDemo }}</a>
+        <NuxtLink :to="`/projects/${project.id}`" class="btn">{{ t.projects.caseStudy }}</NuxtLink>
+        <a :href="project.repo" target="_blank" rel="noopener" class="btn">{{ t.projects.source }}</a>
       </div>
     </div>
   </TiltCard>
@@ -57,9 +44,8 @@ const host = computed(() => (props.project.live ? new URL(props.project.live).ho
   display: flex;
   flex-direction: column;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
-  overflow: hidden;
   box-shadow: var(--shadow);
 }
 
@@ -77,11 +63,14 @@ const host = computed(() => (props.project.live ? new URL(props.project.live).ho
   aspect-ratio: 16 / 10;
   background: var(--bg-2);
   overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+  transform: translateZ(26px); /* floats above the card when it tilts */
 }
 
 .featured .preview {
   aspect-ratio: auto;
   min-height: 100%;
+  border-radius: var(--radius) 0 0 var(--radius);
 }
 
 .browser {
@@ -143,58 +132,13 @@ const host = computed(() => (props.project.live ? new URL(props.project.live).ho
   transform: scale(1.04);
 }
 
-.art {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 60%),
-    radial-gradient(circle at 80% 90%, color-mix(in srgb, var(--accent) 25%, transparent), transparent 55%),
-    var(--bg-2);
-}
-
-.initials {
-  font-family: var(--font-display);
-  font-size: 4.5rem;
-  font-weight: 700;
-  color: var(--accent);
-  transform: translateZ(40px);
-}
-
-.orbit {
-  position: absolute;
-  width: 62%;
-  aspect-ratio: 1;
-  border: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent);
-  border-radius: 50%;
-  animation: spin 24s linear infinite;
-}
-
-.orbit::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 16px var(--accent);
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .body {
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 24px;
   flex: 1;
+  transform: translateZ(14px);
 }
 
 .featured .body {
@@ -290,6 +234,8 @@ h3 {
 
   .featured .preview {
     aspect-ratio: 16 / 10;
+    min-height: 0;
+    border-radius: var(--radius) var(--radius) 0 0;
   }
 
   .featured .body {
@@ -298,7 +244,6 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbit,
   .pulse {
     animation: none;
   }

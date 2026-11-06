@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { hero, links, projects } from '~/data/content'
+import { links } from '~/data/content'
+
+const { t, projects } = useContent()
 
 // Rotating role line: a ref, an interval and a computed — the Vue equivalent of useState + useEffect + useMemo.
 const index = ref(0)
-const role = computed(() => hero.roles[index.value])
+const role = computed(() => t.value.hero.roles[index.value])
 let timer: ReturnType<typeof setInterval> | undefined
 
 onMounted(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  timer = setInterval(() => (index.value = (index.value + 1) % hero.roles.length), 2600)
+  timer = setInterval(() => (index.value = (index.value + 1) % t.value.hero.roles.length), 2600)
 })
 onBeforeUnmount(() => clearInterval(timer))
 
-const liveCount = projects.filter((p) => p.live).length
+const liveCount = computed(() => projects.value.filter((p) => p.live).length)
+const letters = computed(() => Array.from(t.value.hero.name))
 </script>
 
 <template>
@@ -22,31 +25,33 @@ const liveCount = projects.filter((p) => p.live).length
 
     <div class="container grid">
       <div class="copy">
-        <p class="eyebrow">🩺 ⚕️ 💻 🧠 &nbsp;Hey, I'm</p>
-        <h1 class="name">{{ hero.name }}</h1>
+        <p class="eyebrow">{{ t.hero.greeting }}</p>
+        <h1 class="name" :aria-label="t.hero.name">
+          <span v-for="(letter, i) in letters" :key="i" class="letter" :style="{ '--i': i }" aria-hidden="true">{{ letter }}</span>
+        </h1>
         <p class="role" aria-live="polite">
           <Transition name="swap" mode="out-in">
             <span :key="role" class="gradient-text">{{ role }}</span>
           </Transition>
         </p>
-        <p class="tagline">{{ hero.tagline }}</p>
+        <p class="tagline">{{ t.hero.tagline }}</p>
 
         <div class="actions">
-          <a href="#projects" class="btn btn-primary">See my work →</a>
+          <a href="#projects" class="btn btn-primary">{{ t.hero.cta }}</a>
           <a :href="links.linkedin" target="_blank" rel="noopener" class="btn">LinkedIn</a>
           <a :href="links.github" target="_blank" rel="noopener" class="btn">GitHub</a>
         </div>
 
         <ul class="stats">
-          <li><strong>{{ projects.length }}</strong><span>featured projects</span></li>
-          <li><strong>{{ liveCount }}</strong><span>live demos</span></li>
-          <li><strong>280+</strong><span>tests on one app</span></li>
+          <li><strong>{{ projects.length }}</strong><span>{{ t.hero.stats.projects }}</span></li>
+          <li><strong>{{ liveCount }}</strong><span>{{ t.hero.stats.live }}</span></li>
+          <li><strong>280+</strong><span>{{ t.hero.stats.tests }}</span></li>
         </ul>
       </div>
 
     </div>
 
-    <a href="#about" class="scroll-hint" aria-label="Scroll to About"><span /></a>
+    <a href="#about" class="scroll-hint" :aria-label="t.hero.scroll"><span /></a>
   </section>
 </template>
 
@@ -101,6 +106,20 @@ const liveCount = projects.filter((p) => p.live).length
 .name {
   font-size: clamp(3.2rem, 9vw, 6.2rem);
   font-weight: 700;
+}
+
+/* Each letter swings up in 3D on load */
+.letter {
+  display: inline-block;
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 45ms + 150ms);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: perspective(600px) translateY(0.45em) rotateX(-75deg);
+  }
 }
 
 .role {
@@ -203,7 +222,8 @@ const liveCount = projects.filter((p) => p.live).length
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-hint span {
+  .scroll-hint span,
+  .letter {
     animation: none;
   }
 }
