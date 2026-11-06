@@ -39,9 +39,25 @@ describe('extractDeadlines', () => {
     expect(extractDeadlines('October 15', YEAR)[0]).toMatchObject({ title: '', month: 9, day: 15 })
   })
 
+  it('finds the Area of Concentration and keeps it out of the title', () => {
+    const text = ['Midterm: October 17 (covers Chapters 1 to 5)', 'Quiz due Oct 3 (topics: loops)', 'Examen : 5 décembre (porte sur les tableaux)', 'Essay due Nov 2']
+    expect(extractDeadlines(text.join('\n'), YEAR).map((d) => [d.title, d.focus])).toEqual([
+      ['Quiz', 'loops'],
+      ['Midterm', 'Chapters 1 to 5'],
+      ['Essay', ''],
+      ['Examen', 'les tableaux'],
+    ])
+  })
+
+  it('does not treat a title word as a focus', () => {
+    expect(extractDeadlines('Unit 5 exam: Oct 3', YEAR)[0]).toMatchObject({ title: 'Unit 5 exam', focus: '' })
+  })
+
   it('finds all six deadlines in both sample outlines', () => {
     expect(extractDeadlines(en.outline.sample, YEAR)).toHaveLength(6)
     expect(extractDeadlines(fr.outline.sample, YEAR)).toHaveLength(6)
+    expect(extractDeadlines(en.outline.sample, YEAR).filter((d) => d.focus)).toHaveLength(5)
+    expect(extractDeadlines(fr.outline.sample, YEAR).filter((d) => d.focus)).toHaveLength(5)
   })
 })
 

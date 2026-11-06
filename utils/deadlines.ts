@@ -1,8 +1,11 @@
 // A small browser version of OutlineOwl's idea: find dated items in the text of a course outline.
-// Handles "October 15", "Oct 15th", "15 octobre" and an optional year. It reads text only, unlike the real app.
+// Handles "October 15", "Oct 15th", "15 octobre" and an optional year. It reads text only, unlike the real app, and
+// finds the Area of Concentration from words like "covers" or "topics:", where the real app asks AI.
 
 export interface Deadline {
   title: string
+  /** What the item covers: where to concentrate. Empty when the line doesn't say. */
+  focus: string
   year: number
   /** 0 to 11 */
   month: number
@@ -28,6 +31,7 @@ const MONTHS = new Map(MONTH_WORDS)
 const NAMES = MONTH_WORDS.map(([word]) => word).join('|')
 const MONTH_FIRST = new RegExp(`(?<!\\p{L})(${NAMES})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?(?!\\d)(?:,?\\s+(\\d{4}))?`, 'iu')
 const DAY_FIRST = new RegExp(`(?<![\\p{L}\\d])(\\d{1,2})(?:er|st|nd|rd|th)?\\s+(${NAMES})(?!\\p{L})\\.?(?:,?\\s+(\\d{4}))?`, 'iu')
+const FOCUS = /\(?\s*(?<!\p{L})(?:covers?|covering|topics?|focus(?:es)? on|porte sur|portant sur|sujets?|thèmes?)(?!\p{L})\s*:?\s*([^()]+)\)?/iu
 const TRAILING = /\s*(?:due(?:\s+(?:on|by))?|on|by|à remettre le|le|[:,–—-])\s*$/iu
 
 function isRealDate(year: number, month: number, day: number): boolean {
@@ -58,8 +62,11 @@ function readLine(line: string, defaultYear: number): Deadline | null {
   const month = MONTHS.get(monthWord)
   if (month === undefined || !isRealDate(year, month, day)) return null
 
-  const title = cleanTitle(`${line.slice(0, match.index)} ${line.slice(match.index + match[0].length)}`)
-  return { title, year, month, day }
+  const rest = `${line.slice(0, match.index)} ${line.slice(match.index + match[0].length)}`
+  const covered = FOCUS.exec(rest)
+  const focus = covered ? covered[1]!.trim().replace(/[.;,]$/, '') : ''
+  const title = cleanTitle(covered ? rest.replace(covered[0], ' ') : rest)
+  return { title, focus, year, month, day }
 }
 
 /** Every dated line, soonest first, with exact repeats removed. */

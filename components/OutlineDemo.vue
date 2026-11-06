@@ -52,7 +52,10 @@ watch(locale, (next: Locale, previous: Locale) => {
         <ol class="list">
           <li v-for="(r, i) in results" :key="i">
             <span class="date">{{ formatDate(r) }}</span>
-            <span>{{ r.title || t.outline.untitled }}</span>
+            <span>
+              {{ r.title || t.outline.untitled }}
+              <small v-if="r.focus" class="focus">{{ t.outline.focus }} <b>{{ r.focus }}</b></small>
+            </span>
           </li>
         </ol>
       </template>
@@ -198,6 +201,17 @@ textarea {
 .date {
   color: var(--gold);
   font-weight: 600;
+}
+
+.focus {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.focus b {
+  font-weight: 600;
+  color: var(--accent);
 }
 
 .note,
