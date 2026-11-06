@@ -13,7 +13,7 @@ const year = new Date().getFullYear()
         <h2 class="section-title">{{ t.contact.title[0] }}<span class="gradient-text">{{ t.contact.title[1] }}</span>{{ t.contact.title[2] }}</h2>
         <p class="lead">{{ t.contact.lead }}</p>
         <div class="actions">
-          <a :href="`mailto:${links.email}`" class="btn btn-primary">{{ links.email }}</a>
+          <a :href="`mailto:${links.email}`" class="btn btn-primary">{{ t.contact.email }}</a>
           <a :href="links.linkedin" target="_blank" rel="noopener" class="btn">{{ t.contact.linkedin }}</a>
           <a :href="links.github" target="_blank" rel="noopener" class="btn">GitHub</a>
         </div>
