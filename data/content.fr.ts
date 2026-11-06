@@ -268,7 +268,7 @@ Projet final à remettre le 5 décembre (porte sur toutes les unités)`,
   contact: {
     eyebrow: 'Contact',
     title: ['Construisons quelque chose qui ', 'compte', '.'],
-    lead: 'Ouvert aux postes junior, de stagiaire et full-stack au Canada (à distance ou en Ontario). Écrivez-moi par courriel ou sur LinkedIn.',
+    lead: 'Ouvert aux postes junior, de stagiaire et full-stack au Canada, aux États-Unis, au Royaume-Uni et au Moyen-Orient (CCG) : à distance, en mode hybride ou en personne. Écrivez-moi par courriel ou sur LinkedIn.',
     email: 'M’écrire par courriel',
     linkedin: 'M’écrire sur LinkedIn',
     builtWith: 'Construit avec Vue 3, Nuxt et three.js',

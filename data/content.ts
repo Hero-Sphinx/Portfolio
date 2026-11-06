@@ -354,7 +354,7 @@ Final project due December 5 (covers all units)`,
   contact: {
     eyebrow: 'Contact',
     title: ["Let's build something that ", 'matters', '.'],
-    lead: 'Open to junior, intern and full-stack roles in Canada (remote or Ontario). Reach me by email or on LinkedIn.',
+    lead: 'Open to junior, intern and full-stack roles in Canada, the US, the UK and the Middle East (GCC): remote, hybrid or in person. Reach me by email or on LinkedIn.',
     email: 'Email me',
     linkedin: 'Message me on LinkedIn',
     builtWith: 'Built with Vue 3, Nuxt & three.js',
