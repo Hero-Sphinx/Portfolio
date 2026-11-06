@@ -8,6 +8,7 @@ scroll: brain, eye, heartbeat, DNA helix, network globe, then back to the brain.
 - **3D scene:** about 11,000 particles morphing on the GPU, with neurons that fire around your cursor or finger
 - **Phosphene simulator:** shows how electrode count changes simulated prosthetic vision (a simplified illustration, not a clinical model)
 - **Triage demo:** RoboDoc's routing idea in miniature, where critical vitals bypass the AI
+- **Outline demo:** finds deadlines in course outline text and places them on calendars, entirely in the browser
 - **Case studies:** a page per project
 - **English and French**, light and dark themes, reduced-motion support, and a complete page without WebGL or JavaScript
 
