@@ -153,7 +153,7 @@ export const fr: Content = {
       highlights: [
         'Menu et composition de combos avec prix en direct, à emporter ou en livraison',
         'Le serveur recalcule chaque commande ; le navigateur n’envoie jamais de prix',
-        'Authentification maison (argon2id, verrouillage), limites de débit et 55 tests en CI',
+        'Authentification maison (argon2id, verrouillage), limites de débit et 94 tests en CI',
       ],
       problem: 'Une pizzeria fonctionne sur deux écrans : les clients qui commandent et l’équipe en cuisine. J’ai créé cette plateforme comme projet personnel pour bien gérer les deux, du menu aux prix en direct jusqu’au tableau de la cuisine.',
       flow: ['Commande client', 'Recalcul sur le serveur', 'PostgreSQL', 'Tableau de cuisine en direct'],
@@ -163,7 +163,7 @@ export const fr: Content = {
         { title: 'Sécurité dès la conception', text: 'Authentification maison avec argon2id, sessions hachées et verrouillage après 5 échecs, plus limites de débit sur Postgres et nonces CSP.' },
         { title: 'Changements de schéma sûrs', text: 'Un schéma PostgreSQL de 17 tables avec migrations idempotentes que la CI applique, réapplique et vérifie.' },
       ],
-      results: ['Parcours de commande complet, à emporter ou en livraison', '55 tests Vitest en CI', 'Schéma PostgreSQL de 17 tables', 'Tableau de commandes en direct pour la cuisine'],
+      results: ['Parcours de commande complet, à emporter ou en livraison', '94 tests Vitest en CI', 'Schéma PostgreSQL de 17 tables', 'Tableau de commandes en direct pour la cuisine'],
     },
     sunnahflix: {
       blurb: 'Une bibliothèque de savoir islamique façon streaming, gratuite pour tous.',
