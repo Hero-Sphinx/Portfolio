@@ -10,6 +10,7 @@
   --emerald-deep: #059669;
   --gold: #fbbf24;
   --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.65);
+  --card: color-mix(in srgb, var(--bg-2) 84%, transparent);
   --radius: 20px;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -54,6 +55,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 76px;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -126,6 +128,7 @@ main {
 
 .section-lead {
   color: var(--muted);
+  text-shadow: 0 0 12px var(--bg), 0 0 3px var(--bg); /* keeps copy crisp where particles pass behind it */
   max-width: 620px;
   margin: 0 0 48px;
 }
@@ -174,7 +177,7 @@ main {
 /* Scroll reveal, driven by the v-reveal directive */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: perspective(1000px) translateY(32px) rotateX(9deg); /* tips up into place, on touch screens too */
   transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
