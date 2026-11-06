@@ -233,7 +233,7 @@ export const en = {
       highlights: [
         'Menu and combo builder with live prices, pickup or delivery',
         'Server re-prices every order; the browser never sends prices',
-        'Own auth (argon2id, lockout), rate limits and 94 tests in CI',
+        'Own auth (argon2id, lockout), rate limits and 97 tests in CI',
       ],
       problem: 'A pizza restaurant runs on two screens: customers ordering and staff working the kitchen. I built this platform as a personal project to handle both properly, from a live-priced menu to the board the kitchen works from.',
       flow: ['Customer order', 'Server re-pricing', 'PostgreSQL', 'Live kitchen board'],
@@ -243,7 +243,7 @@ export const en = {
         { title: 'Security by design', text: 'Own authentication with argon2id, hashed sessions and lockout after 5 failed logins, plus Postgres-backed rate limits and CSP nonces.' },
         { title: 'Safe schema changes', text: 'A 17-table PostgreSQL schema with idempotent migrations that CI applies, re-applies and drift-checks.' },
       ],
-      results: ['Complete ordering flow for pickup and delivery', '94 Vitest tests in CI', '17-table PostgreSQL schema', 'Live kitchen order board'],
+      results: ['Complete ordering flow for pickup and delivery', '97 Vitest tests in CI', '17-table PostgreSQL schema', 'Live kitchen order board'],
     },
     sunnahflix: {
       blurb: 'A streaming-style library of Islamic knowledge, free for everyone.',
