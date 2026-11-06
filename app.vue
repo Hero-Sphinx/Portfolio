@@ -1,14 +1,8 @@
 <template>
   <div>
-    <NeuralStage />
+    <LazyNeuralStage />
     <NavBar />
-    <main>
-      <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
-      <ExperienceSection />
-      <SkillsSection />
-      <ContactSection />
-    </main>
+    <StageCaption />
+    <NuxtPage />
   </div>
 </template>
