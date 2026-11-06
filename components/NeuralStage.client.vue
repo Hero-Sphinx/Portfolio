@@ -8,6 +8,7 @@ import { NARROW_POSES, STAGE_SECTIONS, WIDE_POSES, normaliseAnchors, poseAt, sta
 
 const host = ref<HTMLDivElement | null>(null)
 const figure = useState('stage-figure', () => 0)
+const tint = useState<string | null>('stage-tint', () => null)
 const route = useRoute()
 let cleanup: (() => void) | null = null
 
@@ -143,7 +144,7 @@ onMounted(async () => {
     uScale: { value: pointScale() },
     uOpacity: { value: 1 },
     uMotion: { value: reduceMotion ? 0 : 1 },
-    uCool: { value: cool },
+    uCool: { value: cool.clone() },
     uWarm: { value: warm },
     uTouch: { value: new THREE.Vector3(0, 0, 0) },
     uAspect: { value: 1 },
@@ -266,6 +267,8 @@ onMounted(async () => {
   let lost = false
   let slowFrames = 0
   const spot = new THREE.Vector3()
+  const tintColour = new THREE.Color()
+  let tintMix = 0
 
   const render = () => {
     const now = performance.now()
@@ -297,7 +300,12 @@ onMounted(async () => {
     // Keep the About section readable while the hero's bright brain is still in place
     const scrolled = Math.min(window.scrollY / window.innerHeight, 1)
     const early = 1 - 0.45 * scrolled * Math.max(0, 1 - stage)
-    const opacity = pose.opacity * early * (route.path === '/' ? 1 : 0.28)
+    // Hovering a project eases the cloud towards that project's colour, and lifts it so the change is visible
+    if (tint.value) tintColour.set(tint.value)
+    const tintTarget = tint.value ? 1 : 0
+    tintMix = reduceMotion ? tintTarget : tintMix + (tintTarget - tintMix) * (1 - Math.exp(-dt * 5))
+    uniforms.uCool.value.copy(cool).lerp(tintColour, tintMix)
+    const opacity = Math.min(1, pose.opacity * early * (route.path === '/' ? 1 : 0.28) * (1 + tintMix * 1.3))
 
     uniforms.uStage.value = stage
     uniforms.uTime.value = t

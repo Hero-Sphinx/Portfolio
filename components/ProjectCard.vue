@@ -2,11 +2,17 @@
 const props = defineProps<{ project: ProjectView; featured?: boolean }>()
 
 const { t } = useContent()
+
+// Tints the 3D cloud behind the page while this project is hovered or focused
+const tint = useState<string | null>('stage-tint', () => null)
+const light = () => (tint.value = props.project.accent)
+const dim = () => (tint.value = null)
+onBeforeUnmount(dim)
 const host = computed(() => (props.project.live ? new URL(props.project.live).host : props.project.repo.replace('https://', '')))
 </script>
 
 <template>
-  <TiltCard class="card" :class="{ featured }" :style="{ '--accent': project.accent }" :max="featured ? 6 : 9">
+  <TiltCard class="card" :class="{ featured }" :style="{ '--accent': project.accent }" :max="featured ? 6 : 9" @pointerenter="light" @pointerleave="dim" @focusin="light" @focusout="dim">
     <div class="preview">
       <template v-if="project.shot">
         <div class="browser">
