@@ -149,13 +149,13 @@ export const fr: Content = {
       results: ['Échéances extraites de PDF non structurés', 'Synchronisation automatique du calendrier', 'Rappels par SMS', 'Démo en ligne disponible'],
     },
     pizza: {
-      blurb: 'Plateforme de commande en ligne avec tableau de cuisine en direct.',
+      blurb: 'Plateforme full-stack de commande pour pizzerias, avec tableau de cuisine en direct.',
       highlights: [
         'Menu et composition de combos avec prix en direct, à emporter ou en livraison',
         'Le serveur recalcule chaque commande ; le navigateur n’envoie jamais de prix',
         'Authentification maison (argon2id, verrouillage), limites de débit et 55 tests en CI',
       ],
-      problem: 'La page de commande tierce du restaurant ne fonctionnait plus. Il lui fallait sa propre plateforme pour les clients et une console pour l’équipe en cuisine.',
+      problem: 'Une pizzeria fonctionne sur deux écrans : les clients qui commandent et l’équipe en cuisine. J’ai créé cette plateforme comme projet personnel pour bien gérer les deux, du menu aux prix en direct jusqu’au tableau de la cuisine.',
       flow: ['Commande client', 'Recalcul sur le serveur', 'PostgreSQL', 'Tableau de cuisine en direct'],
       decisions: [
         { title: 'Ne jamais faire confiance au navigateur', text: 'Chaque commande est recalculée sur le serveur à partir du menu à jour, en appliquant horaires, zone de livraison, règles des offres et ruptures, avec des clés d’idempotence contre les doubles commandes.' },
@@ -163,7 +163,24 @@ export const fr: Content = {
         { title: 'Sécurité dès la conception', text: 'Authentification maison avec argon2id, sessions hachées et verrouillage après 5 échecs, plus limites de débit sur Postgres et nonces CSP.' },
         { title: 'Changements de schéma sûrs', text: 'Un schéma PostgreSQL de 17 tables avec migrations idempotentes que la CI applique, réapplique et vérifie.' },
       ],
-      results: ['Remplacement d’une page de commande tierce défaillante', '55 tests Vitest en CI', 'Schéma PostgreSQL de 17 tables', 'Tableau de commandes en direct pour la cuisine'],
+      results: ['Parcours de commande complet, à emporter ou en livraison', '55 tests Vitest en CI', 'Schéma PostgreSQL de 17 tables', 'Tableau de commandes en direct pour la cuisine'],
+    },
+    sunnahflix: {
+      blurb: 'Une bibliothèque de savoir islamique façon streaming, gratuite pour tous.',
+      highlights: [
+        'Récitations du Coran, conférences et livres à télécharger au même endroit',
+        'Le contenu se charge depuis du JSON : la bibliothèque grandit sans toucher aux pages',
+        'Recherche de livres avec filtres par catégorie et par auteur',
+      ],
+      problem: 'Le savoir islamique devrait être facile d’accès et agréable à explorer. J’ai créé SunnahFlix comme projet personnel pour réunir récitations, conférences et livres au même endroit, organisés comme un service de streaming et gratuits pour tous.',
+      flow: ['Bibliothèque JSON', 'Chargement dans le navigateur', 'Rangées et grilles défilantes', 'Regarder ou télécharger'],
+      decisions: [
+        { title: 'Des données, pas des pages codées en dur', text: 'Récitations, conférences et livres vivent dans des fichiers JSON que JavaScript charge dans la page : ajouter du contenu revient à modifier des données.' },
+        { title: 'Naviguer comme sur un service de streaming', text: 'Des rangées défilantes de catégories et de vidéos intégrées rendent une grande bibliothèque familière et facile à explorer.' },
+        { title: 'Trouver un livre rapidement', text: 'La recherche fonctionne avec des filtres par catégorie et par auteur, et les livres se téléchargent en PDF.' },
+        { title: 'Des technologies web simples', text: 'Construit avec HTML, CSS, JavaScript et Bootstrap, sans framework ni étape de compilation.' },
+      ],
+      results: ['Récitations, conférences et livres au même endroit', 'Recherche et filtres pour les livres', 'Gratuit pour tous'],
     },
     ptfms: {
       blurb: 'Système de gestion de flotte de transport en commun (PTFMS).',

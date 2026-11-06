@@ -6,7 +6,7 @@ export const links = {
   linkedin: 'https://www.linkedin.com/in/abdullahi-salami-4a8788218/',
 }
 
-export type ProjectArt = 'calendar' | 'tickets' | 'routes' | 'flight'
+export type ProjectArt = 'calendar' | 'pizza' | 'routes' | 'flight'
 
 export interface ProjectMeta {
   id: string
@@ -50,11 +50,19 @@ export const projectMeta: ProjectMeta[] = [
   },
   {
     id: 'pizza',
-    name: '786 Pizza & Wings',
+    name: 'Pizza Ordering Platform',
     stack: ['Next.js', 'TypeScript', 'Prisma', 'Tailwind', 'Vitest'],
     repo: 'https://github.com/Hero-Sphinx/786-Pizza-Wings',
-    art: 'tickets',
+    art: 'pizza',
     accent: '#fbbf24',
+  },
+  {
+    id: 'sunnahflix',
+    name: 'SunnahFlix',
+    stack: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'JSON'],
+    repo: 'https://github.com/Hero-Sphinx/SunnahFlix',
+    shot: '/shots/sunnahflix.png',
+    accent: '#d4a017',
   },
   {
     id: 'ptfms',
@@ -221,13 +229,13 @@ export const en = {
       results: ['Deadlines extracted from unstructured PDFs', 'Automatic calendar sync', 'SMS reminders', 'Live demo available'],
     },
     pizza: {
-      blurb: 'Online ordering platform with a live kitchen board.',
+      blurb: 'Full-stack ordering platform for pizza restaurants, with a live kitchen board.',
       highlights: [
         'Menu and combo builder with live prices, pickup or delivery',
         'Server re-prices every order; the browser never sends prices',
         'Own auth (argon2id, lockout), rate limits and 55 tests in CI',
       ],
-      problem: 'The restaurant’s third-party ordering page was broken. It needed its own platform for customers and a console for the staff running the kitchen.',
+      problem: 'A pizza restaurant runs on two screens: customers ordering and staff working the kitchen. I built this platform as a personal project to handle both properly, from a live-priced menu to the board the kitchen works from.',
       flow: ['Customer order', 'Server re-pricing', 'PostgreSQL', 'Live kitchen board'],
       decisions: [
         { title: 'Never trust the browser', text: 'Every order is re-priced on the server from fresh menu data, enforcing hours, delivery area, deal rules and sold-out items, with idempotency keys against double orders.' },
@@ -235,7 +243,24 @@ export const en = {
         { title: 'Security by design', text: 'Own authentication with argon2id, hashed sessions and lockout after 5 failed logins, plus Postgres-backed rate limits and CSP nonces.' },
         { title: 'Safe schema changes', text: 'A 17-table PostgreSQL schema with idempotent migrations that CI applies, re-applies and drift-checks.' },
       ],
-      results: ['Replaced a broken third-party ordering page', '55 Vitest tests in CI', '17-table PostgreSQL schema', 'Live kitchen order board'],
+      results: ['Complete ordering flow for pickup and delivery', '55 Vitest tests in CI', '17-table PostgreSQL schema', 'Live kitchen order board'],
+    },
+    sunnahflix: {
+      blurb: 'A streaming-style library of Islamic knowledge, free for everyone.',
+      highlights: [
+        'Qur’an recitations, lectures and downloadable books in one place',
+        'Content loads from JSON, so the library grows without touching the pages',
+        'Book search with category and author filters',
+      ],
+      problem: 'Islamic knowledge should be easy to reach and engaging to explore. I built SunnahFlix as a personal project to give recitations, lectures and books one home, organised like a streaming service and free for anyone.',
+      flow: ['JSON library', 'Loaded in the browser', 'Scrolling rows and grids', 'Watch or download'],
+      decisions: [
+        { title: 'Data, not hard-coded pages', text: 'Recitations, lectures and books live in JSON files that JavaScript loads into the page, so new content is a data change.' },
+        { title: 'Browse like a streaming service', text: 'Scrolling rows of categories and embedded videos make a large library feel familiar and easy to explore.' },
+        { title: 'Find a book fast', text: 'Search works alongside category and author filters, and books can be downloaded as PDFs.' },
+        { title: 'Plain web technology', text: 'Built with HTML, CSS, JavaScript and Bootstrap, with no framework or build step.' },
+      ],
+      results: ['Recitations, lectures and books in one place', 'Search and filters for books', 'Free for everyone'],
     },
     ptfms: {
       blurb: 'Public transit fleet management system (PTFMS).',

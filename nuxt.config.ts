@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint'],
   nitro: {
     prerender: {
-      routes: ['/projects/seebawayh', '/projects/robodoc', '/projects/outlineowl', '/projects/pizza', '/projects/ptfms', '/projects/flight'],
+      routes: ['/projects/seebawayh', '/projects/robodoc', '/projects/outlineowl', '/projects/pizza', '/projects/sunnahflix', '/projects/ptfms', '/projects/flight'],
     },
   },
   css: ['~/assets/css/main.css'],
