@@ -1,8 +1,14 @@
 // Point clouds for the 3D scene. Pure maths with a seeded random generator, so every visit draws the same shape and
 // the code can be unit tested without a browser.
 
-type Rand = () => number
-type Point = [number, number, number]
+export type Rand = () => number
+export type Point = [number, number, number]
+
+/** A particle's place in a form. Tone runs from 0 (emerald) to 1 (gold). */
+export interface FormPoint {
+  p: Point
+  tone: number
+}
 
 // mulberry32: small, fast and deterministic.
 export function seededRandom(seed: number): Rand {
@@ -16,7 +22,7 @@ export function seededRandom(seed: number): Rand {
   }
 }
 
-function onSphere(rand: Rand): Point {
+export function onSphere(rand: Rand): Point {
   const u = rand() * 2 - 1
   const theta = rand() * Math.PI * 2
   const s = Math.sqrt(1 - u * u)
@@ -63,11 +69,8 @@ function brainStem(rand: Rand): Point {
 }
 
 /** A brain seen with +z as the front: folded cerebrum, ridged cerebellum and brain stem. */
-export function brainPoints(count: number, seed = 7): Point[] {
-  const rand = seededRandom(seed)
-  return Array.from({ length: count }, () => {
-    const pick = rand()
-    if (pick < 0.83) return cerebrum(rand)
-    return pick < 0.95 ? cerebellum(rand) : brainStem(rand)
-  })
+export function brainPoint(rand: Rand): FormPoint {
+  const pick = rand()
+  const p = pick < 0.83 ? cerebrum(rand) : pick < 0.95 ? cerebellum(rand) : brainStem(rand)
+  return { p, tone: rand() < 0.1 ? 0.9 : rand() * 0.22 }
 }
