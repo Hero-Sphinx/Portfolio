@@ -33,7 +33,7 @@ describe('site content', () => {
 
   it('has unique project ids and https links', () => {
     expect(new Set(projectMeta.map((p) => p.id)).size).toBe(projectMeta.length)
-    const urls = [...Object.values(links), ...projectMeta.flatMap((p) => [p.repo, p.live ?? p.repo])]
+    const urls = [links.github, links.linkedin, ...projectMeta.flatMap((p) => [p.repo, p.live ?? p.repo])]
     for (const url of urls) expect(url).toMatch(/^https:\/\//)
   })
 

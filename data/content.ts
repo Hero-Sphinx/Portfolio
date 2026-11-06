@@ -4,6 +4,7 @@
 export const links = {
   github: 'https://github.com/Hero-Sphinx',
   linkedin: 'https://www.linkedin.com/in/abdullahi-salami-4a8788218/',
+  email: 'salamiabdullah6@gmail.com',
 }
 
 export type ProjectArt = 'calendar' | 'pizza' | 'routes' | 'flight'
@@ -323,7 +324,7 @@ export const en = {
   contact: {
     eyebrow: 'Contact',
     title: ["Let's build something that ", 'matters', '.'],
-    lead: 'Open to junior, intern and full-stack roles in Canada (remote or Ontario). The fastest way to reach me is LinkedIn.',
+    lead: 'Open to junior, intern and full-stack roles in Canada (remote or Ontario). Reach me by email or on LinkedIn.',
     linkedin: 'Message me on LinkedIn',
     builtWith: 'Built with Vue 3, Nuxt & three.js',
   },

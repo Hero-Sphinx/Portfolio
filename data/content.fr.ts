@@ -238,7 +238,7 @@ export const fr: Content = {
   contact: {
     eyebrow: 'Contact',
     title: ['Construisons quelque chose qui ', 'compte', '.'],
-    lead: 'Ouvert aux postes junior, de stagiaire et full-stack au Canada (à distance ou en Ontario). Le plus rapide pour me joindre, c’est LinkedIn.',
+    lead: 'Ouvert aux postes junior, de stagiaire et full-stack au Canada (à distance ou en Ontario). Écrivez-moi par courriel ou sur LinkedIn.',
     linkedin: 'M’écrire sur LinkedIn',
     builtWith: 'Construit avec Vue 3, Nuxt et three.js',
   },

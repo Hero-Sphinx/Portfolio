@@ -3,6 +3,7 @@
 import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import { links } from '~/data/content'
 
 const tracked = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], { encoding: 'utf8' })
   .split('\n')
@@ -59,9 +60,10 @@ describe('secret scan', () => {
 })
 
 describe('privacy rules', () => {
-  it('publishes no phone number or personal email', () => {
+  it('publishes no phone number, and no email except the public one in data/content.ts', () => {
     const files = tracked.filter((f) => isText(f) && f !== SELF && f !== 'package.json')
     const personal = /\+?1?[ (.-]*\d{3}[ ).-]+\d{3}[ .-]+\d{4}\b|[\w.+-]+@gmail\.com/
-    expect(files.filter((f) => personal.test(read(f))), 'Contact goes through LinkedIn only').toEqual([])
+    const leaks = files.filter((f) => personal.test(read(f).replaceAll(links.email, '')))
+    expect(leaks, 'Only links.email may be published').toEqual([])
   })
 })
