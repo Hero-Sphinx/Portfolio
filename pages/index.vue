@@ -1,6 +1,7 @@
 <template>
   <main>
     <HeroSection />
+    <MottoSection />
     <AboutSection />
     <ResearchSection />
     <TriageSection />
