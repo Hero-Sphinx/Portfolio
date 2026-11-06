@@ -20,8 +20,10 @@ const letters = computed(() => Array.from(t.value.hero.name))
 
 <template>
   <section id="top" class="hero">
-    <div class="glow glow-a" aria-hidden="true" />
-    <div class="glow glow-b" aria-hidden="true" />
+    <div class="glows" aria-hidden="true">
+      <div class="glow glow-a" />
+      <div class="glow glow-b" />
+    </div>
 
     <div class="container grid">
       <div class="copy">
@@ -63,6 +65,16 @@ const letters = computed(() => Array.from(t.value.hero.name))
   align-items: center;
   padding: 110px 0 80px;
   overflow: hidden;
+}
+
+/* Fades out before the section ends, so the glow never stops in a hard line */
+.glows {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 62%, transparent);
+  mask-image: linear-gradient(#000 62%, transparent);
 }
 
 .glow {
