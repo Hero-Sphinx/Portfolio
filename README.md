@@ -45,11 +45,12 @@ These are enforced by `tests/architecture/rules.test.ts`. Fix the code rather th
 
 - No raw HTML rendering, `eval` or `new Function`
 - External links use `rel="noopener"`
-- No secrets, env files, phone numbers or personal email in the repo
+- No secrets, env files or phone numbers in the repo, and no email except the public one in `data/content.ts`
 - All copy lives in `data/`, and every claim must be true and backed up by my CV or projects
 - Both languages keep the same shape, which `tests/unit/content.test.ts` checks
 
 ## Deploying
 
-Vercel builds it with `vercel.json` (`npm run generate`, output in `.output/public`). Turn on Deployment Checks with the
+Vercel builds it with `vercel.json`. `NITRO_PRESET=static` keeps the output in `.output/public`, so the security headers
+in `vercel.json` apply. Turn on Deployment Checks with the
 "App checks" job marked Blocking, so production only moves after CI passes.
