@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// A brain drawn in particles with three.js: folded cortex, cerebellum and stem, links between near neighbours, and
+// The 3D layer fixed behind the whole page. A brain drawn in particles with three.js: folded cortex, cerebellum and stem, links between near neighbours, and
 // "signals" travelling along the links. `.client.vue` means Nuxt only renders it in the browser (no WebGL on the server).
 import * as THREE from 'three'
 import { brainPoints } from '~/utils/shapes'
@@ -35,7 +35,7 @@ onMounted(async () => {
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100)
-  camera.position.set(0, 0, small ? 4.6 : 3.9)
+  camera.position.set(0, 0, small ? 6.2 : 5.2)
 
   const brain = new THREE.Group()
   const restAngle = -1.25 // near side-on, where the folds and cerebellum read best
@@ -60,7 +60,7 @@ onMounted(async () => {
     transparent: true,
     depthWrite: false,
     blending,
-    uniforms: { uScale: { value: renderer.getPixelRatio() * (small ? 26 : 34) }, uTime: { value: 0 } },
+    uniforms: { uScale: { value: renderer.getPixelRatio() * (small ? 36 : 44) }, uTime: { value: 0 }, uOpacity: { value: 1 } },
     vertexShader: `
       attribute float size;
       attribute vec3 color;
@@ -76,10 +76,11 @@ onMounted(async () => {
       }`,
     fragmentShader: `
       varying vec3 vColor;
+      uniform float uOpacity;
       void main() {
         float d = length(gl_PointCoord - 0.5);
         float a = smoothstep(0.5, 0.0, d);
-        gl_FragColor = vec4(vColor, a * a);
+        gl_FragColor = vec4(vColor, a * a * uOpacity);
       }`,
   })
 
@@ -108,10 +109,11 @@ onMounted(async () => {
   })
   const lineGeo = new THREE.BufferGeometry()
   lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3))
+  const lineOpacity = lightMode ? 0.28 : 0.16
   const lineMat = new THREE.LineBasicMaterial({
     color: EMERALD,
     transparent: true,
-    opacity: lightMode ? 0.28 : 0.16,
+    opacity: lineOpacity,
     blending,
     depthWrite: false,
   })
@@ -160,20 +162,32 @@ onMounted(async () => {
   }
   window.addEventListener('pointermove', onPointer, { passive: true })
 
+  // Beside the hero copy on wide screens; centred, higher and dimmer behind the text on narrow ones
+  const anchor = { x: 0, y: 0 }
+  let baseOpacity = 1
   const resize = () => {
     const { clientWidth: w, clientHeight: h } = el
     renderer.setSize(w, h, false)
     camera.aspect = w / Math.max(h, 1)
     camera.updateProjectionMatrix()
+    const halfHeight = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z
+    const wide = w >= 900
+    anchor.x = wide ? halfHeight * camera.aspect * 0.46 : 0
+    anchor.y = wide ? 0 : halfHeight * 0.3
+    baseOpacity = wide ? 1 : 0.5
   }
   const ro = new ResizeObserver(resize)
   ro.observe(el)
   resize()
+  brain.position.set(anchor.x, anchor.y, 0)
 
-  // Only animate while the hero is on screen and the tab is visible
-  let onScreen = true
-  const io = new IntersectionObserver(([entry]) => (onScreen = entry.isIntersecting))
-  io.observe(el)
+  // The scene dims once the hero scrolls away, so it never competes with the text
+  let scrollDim = 1
+  const onScroll = () => {
+    scrollDim = 1 - 0.55 * Math.min(window.scrollY / window.innerHeight, 1)
+    if (reduceMotion) render()
+  }
+  window.addEventListener('scroll', onScroll, { passive: true })
 
   const a = new THREE.Vector3()
   const b = new THREE.Vector3()
@@ -190,7 +204,10 @@ onMounted(async () => {
 
     brain.rotation.y = restAngle + Math.sin(t * 0.3) * 0.5 // sway rather than spin: front-on it reads as a mushroom
     brain.rotation.x += (target.y * 0.25 - brain.rotation.x) * 0.04
-    brain.position.x += (target.x * 0.15 - brain.position.x) * 0.04
+    brain.position.x += (anchor.x + target.x * 0.15 - brain.position.x) * 0.04
+    brain.position.y += (anchor.y - brain.position.y) * 0.04
+    dotMaterial.uniforms.uOpacity.value = baseOpacity * scrollDim
+    lineMat.opacity = lineOpacity * baseOpacity * scrollDim
     dust.rotation.y = t * 0.01
 
     signals.forEach((s, i) => {
@@ -212,10 +229,11 @@ onMounted(async () => {
 
   const loop = () => {
     frame = requestAnimationFrame(loop)
-    if (!onScreen || document.hidden) return
+    if (document.hidden) return
     render()
   }
 
+  onScroll()
   if (reduceMotion) {
     signals.forEach((s) => (s.t = 0.5))
     render()
@@ -226,8 +244,8 @@ onMounted(async () => {
   cleanup = () => {
     cancelAnimationFrame(frame)
     window.removeEventListener('pointermove', onPointer)
+    window.removeEventListener('scroll', onScroll)
     ro.disconnect()
-    io.disconnect()
     ;[nodeGeo, lineGeo, sigGeo, dustGeo].forEach((g) => g.dispose())
     ;[dotMaterial, lineMat, dustMat].forEach((m) => m.dispose())
     renderer.dispose()
@@ -244,8 +262,11 @@ onBeforeUnmount(() => cleanup?.())
 
 <style scoped>
 .scene {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  inset: 0 0 auto;
+  height: 100lvh; /* the large viewport, so a phone's address bar hiding never resizes the canvas */
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* No WebGL: a soft static glow instead of an empty box */

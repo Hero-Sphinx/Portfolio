@@ -44,9 +44,6 @@ const liveCount = projects.filter((p) => p.live).length
         </ul>
       </div>
 
-      <div class="visual">
-        <HeroScene />
-      </div>
     </div>
 
     <a href="#about" class="scroll-hint" aria-label="Scroll to About"><span /></a>
@@ -151,11 +148,6 @@ const liveCount = projects.filter((p) => p.live).length
   color: var(--muted);
 }
 
-.visual {
-  position: relative;
-  height: min(620px, 70vh);
-}
-
 .swap-enter-active,
 .swap-leave-active {
   transition: opacity 0.35s ease, transform 0.35s ease;
@@ -203,14 +195,6 @@ const liveCount = projects.filter((p) => p.live).length
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .visual {
-    position: absolute;
-    inset: -40px -60px auto;
-    height: 520px;
-    opacity: 0.55;
-    z-index: 0;
   }
 
   .stats {

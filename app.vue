@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NeuralStage />
     <NavBar />
     <main>
       <HeroSection />
