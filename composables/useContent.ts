@@ -29,6 +29,11 @@ export function useContent() {
   return { locale, t, projects, setLocale }
 }
 
+/** The copy for one language, whichever is active. */
+export function copyFor(locale: Locale): Content {
+  return copy[locale]
+}
+
 export function savedLocale(): Locale | null {
   const saved = localStorage.getItem(STORAGE_KEY)
   return saved === 'en' || saved === 'fr' ? saved : null

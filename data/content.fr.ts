@@ -76,6 +76,28 @@ export const fr: Content = {
     disclaimer: 'Une simulation avec des seuils de démonstration, pas un logiciel médical. Dans le vrai système, les alertes partent en moins de 45 ms.',
     caseStudy: 'Lire l’étude de cas RoboDoc →',
   },
+  outline: {
+    eyebrow: 'Essayez',
+    title: ['Du plan de cours au ', 'calendrier', ' en un clic.'],
+    lead: 'L’idée clé d’OutlineOwl, en miniature. Les échéances se cachent dans chaque plan de cours : il les trouve pour vous. Utilisez l’exemple ou collez le vôtre.',
+    inputLabel: 'Plan de cours',
+    action: 'Trouver mes échéances',
+    hint: 'Vos échéances apparaîtront ici.',
+    empty: 'Aucune date trouvée. Essayez une ligne comme « Essai à remettre le 15 octobre ».',
+    found: 'Échéances trouvées :',
+    untitled: 'Échéance',
+    months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+    weekdays: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+    sample: `INF 101 : Introduction à la programmation (plan de cours exemple)
+Quiz de la semaine 3 : 19 septembre
+Devoir 1 à remettre le 26 septembre
+Examen de mi-session : 17 octobre
+Proposition de projet à remettre le 31 octobre
+Devoir 2 à remettre le 14 novembre
+Projet final à remettre le 5 décembre`,
+    disclaimer: 'Une version simplifiée qui lit le texte dans votre navigateur : rien de ce que vous tapez ne quitte cette page. Le vrai OutlineOwl lit les plans de cours PDF et se synchronise avec Google Agenda.',
+    caseStudy: 'Lire l’étude de cas OutlineOwl →',
+  },
   projects: {
     eyebrow: 'Projets choisis',
     title: ['Des projets avec ', 'démos en ligne', '.'],

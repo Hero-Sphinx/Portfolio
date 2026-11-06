@@ -157,6 +157,28 @@ export const en = {
     disclaimer: 'A simulation with demo thresholds, not medical software. In the real system, alerts go out in under 45 ms.',
     caseStudy: 'Read the RoboDoc case study →',
   },
+  outline: {
+    eyebrow: 'Try it',
+    title: ['From course outline to ', 'calendar', ' in one click.'],
+    lead: 'OutlineOwl’s core idea, in miniature. Deadlines hide inside every course outline, so it finds them for you. Use the sample, or paste your own.',
+    inputLabel: 'Course outline',
+    action: 'Find my deadlines',
+    hint: 'Your deadlines will land here.',
+    empty: 'No dates found. Try a line like “Essay due October 15”.',
+    found: 'Deadlines found:',
+    untitled: 'Deadline',
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    weekdays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    sample: `CS 101: Introduction to Programming (sample outline)
+Week 3 quiz: September 19
+Assignment 1 due September 26
+Midterm exam: October 17
+Project proposal due Oct 31
+Assignment 2 due November 14
+Final project due December 5`,
+    disclaimer: 'A simplified version that reads text in your browser, so nothing you type leaves this page. The real OutlineOwl reads PDF outlines and syncs to Google Calendar.',
+    caseStudy: 'Read the OutlineOwl case study →',
+  },
   projects: {
     eyebrow: 'Selected work',
     title: ['Projects with ', 'live demos', '.'],
