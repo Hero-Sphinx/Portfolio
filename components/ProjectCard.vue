@@ -2,7 +2,7 @@
 const props = defineProps<{ project: ProjectView; featured?: boolean }>()
 
 const { t } = useContent()
-const host = computed(() => (props.project.live ? new URL(props.project.live).host : ''))
+const host = computed(() => (props.project.live ? new URL(props.project.live).host : props.project.repo.replace('https://', '')))
 </script>
 
 <template>
