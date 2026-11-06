@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "buildCommand": "NITRO_PRESET=static npm run generate",
+  "buildCommand": "NITRO_PRESET=static npm run generate && rm -f .output/public/200.html",
   "outputDirectory": ".output/public",
   "headers": [
     {
