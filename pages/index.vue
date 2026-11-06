@@ -5,6 +5,7 @@
     <ResearchSection />
     <TriageSection />
     <ProjectsSection />
+    <OutlineSection />
     <ExperienceSection />
     <SkillsSection />
     <ContactSection />
