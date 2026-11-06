@@ -8,6 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
+    "lint": "eslint .",
+    "test": "vitest run",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -15,8 +17,12 @@
     "three": "^0.187.0"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^1.17.0",
+    "@types/node": "^26.6.6",
     "@types/three": "^0.187.0",
+    "eslint": "^10.14.0",
     "typescript": "^6.0.3",
+    "vitest": "^5.1.0",
     "vue-tsc": "^3.3.14"
   }
 }
